@@ -1,5 +1,9 @@
 # Bodyshot Gangwar – FiveM Server (v3)
 
+
+https://github.com/user-attachments/assets/846c93de-9a0d-4ae8-bb2b-e3823989eae9
+
+
 Gangwar-Server mit Bodyshot-System. Kein Framework und keine Datenbank nötig: eine Ressource (`bodyshot_pvp`) reinkopieren, fertig.
 
 ## Was drin ist
