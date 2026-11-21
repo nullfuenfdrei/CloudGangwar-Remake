@@ -1,0 +1,9 @@
+﻿Hier kommen die Tanz-Animationen hin (Fortnite-Floss und Take the L).
+GTA hat diese Tänze nicht eingebaut, sie kommen als .ycd-Datei:
+
+  custom@floss.ycd    -> Emote /e floss
+  custom@take_l.ycd   -> Emote /e takel
+
+Heißen die Dateien oder die Animation darin anders, in shared/emotes.lua
+"dict" (= Dateiname ohne .ycd) und "anim" anpassen.
+Danach in der txAdmin-Konsole: ensure bodyshot_pvp

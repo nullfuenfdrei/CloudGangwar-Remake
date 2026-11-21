@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Gangwar</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================================================================ HUD -->
+<div id="hud" class="hud off">
+  <div id="vignette" class="vignette"></div>
+  <div id="lowhp" class="lowhp"></div>
+  <div id="dirs" class="dirs"></div>
+
+  <!-- oben links: Uhr + Chat -->
+  <div class="tl">
+    <div class="tl-top">
+      <img class="hud-mark" src="img/brand/logo-anim.webp" alt="" onerror="this.remove()">
+      <div id="clock" class="clock">
+        <b id="clock-time">00:00</b>
+        <span id="clock-date"></span>
+      </div>
+    </div>
+    <div id="chat" class="chat">
+      <div id="chat-log" class="chat-log"></div>
+      <div id="chat-box" class="chat-box off">
+        <button id="chat-channel" class="chat-channel" type="button">Alle</button>
+        <input id="chat-text" type="text" autocomplete="off" spellcheck="false" maxlength="150" placeholder="Nachricht oder /befehl">
+      </div>
+      <div id="chat-suggest" class="chat-suggest off"></div>
+      <div id="chat-hint" class="chat-hint off"><kbd>Enter</kbd> senden <kbd>Tab</kbd> Alle/Team <kbd>Esc</kbd> schließen</div>
+    </div>
+  </div>
+
+  <!-- oben rechts: Statistik -->
+  <div class="tr">
+    <div id="stats" class="stats">
+      <div class="stat-row">
+        <div class="stat" id="st-kills"><i class="ic" data-icon="crosshair"></i><b>0</b><span>Kills</span></div>
+        <div class="stat" id="st-deaths"><i class="ic" data-icon="skull"></i><b>0</b><span>Tode</span></div>
+        <div class="stat" id="st-kd"><i class="ic" data-icon="trending-up"></i><b>0,00</b><span>K/D</span></div>
+      </div>
+      <div class="xp">
+        <span class="xp-lvl">LVL <b id="hud-lvl">1</b></span>
+        <div class="xp-track"><i id="hud-xp"></i></div>
+        <span id="hud-xp-text" class="xp-text">0 XP</span>
+      </div>
+      <div class="info-row">
+        <span>ID <b id="hud-id">–</b></span>
+        <span><i class="dot"></i><b id="hud-online">0</b> Online</span>
+        <span>LVL <b id="hud-lvl2">1</b></span>
+        <span class="money" id="hud-money">$0</span>
+      </div>
+      <div id="hud-place" class="place"></div>
+    </div>
+    <div id="onme-hud" class="onme-hud off"><i class="ic" data-icon="target"></i><span>Kopfgeld auf dich</span><b id="onme-amt">$0</b></div>
+    <div id="killfeed" class="killfeed"></div>
+  </div>
+
+  <div id="toasts" class="toasts"></div>
+
+  <!-- unten rechts: Munition + Spielzeit-Bonus -->
+  <div class="br">
+    <div id="itemcounts" class="itemcounts off"></div>
+    <div id="ammo" class="ammo off">
+      <span id="ammo-name" class="ammo-name"></span>
+      <div class="ammo-count"><b id="ammo-clip">0</b><span id="ammo-reserve">∞</span></div>
+      <div class="ammo-bar"><i id="ammo-fill"></i></div>
+    </div>
+    <div id="playtime" class="playtime off">
+      <i class="ic" data-icon="gift"></i>
+      <div class="pt-text">
+        <span>Spielzeit-Bonus</span>
+        <b id="pt-left">60:00</b>
+      </div>
+      <span id="pt-money" class="pt-money">+$1.000</span>
+      <div class="pt-bar"><i id="pt-fill"></i></div>
+    </div>
+  </div>
+
+  <!-- Mitte -->
+  <div id="itembar" class="itembar off"><span id="itembar-label">Ziehe Weste</span><div class="ib-track"><i id="itembar-fill"></i></div><b id="itembar-pct">0%</b></div>
+  <div id="hitmarker" class="hitmarker"><i></i><i></i><i></i><i></i></div>
+  <div id="dmgnums" class="dmgnums"></div>
+  <div id="killpop" class="killpop">
+    <span class="kp-label">Eliminiert</span>
+    <b id="killpop-name"></b>
+    <span id="killpop-extra" class="kp-extra"></span>
+  </div>
+  <div id="banner" class="banner off"></div>
+  <div id="war" class="war off">
+    <div class="war-side att"><b id="war-att-tag">?</b><span id="war-att-pts">0</span></div>
+    <div class="war-mid">
+      <span id="war-phase" class="war-phase"></span>
+      <b id="war-time">0:00</b>
+      <span id="war-zone" class="war-zone"></span>
+      <span id="war-count" class="war-count"></span>
+    </div>
+    <div class="war-side def"><span id="war-def-pts">0</span><b id="war-def-tag">?</b></div>
+  </div>
+  <!-- 1v1-Duell -->
+  <div id="duelbar" class="off">
+    <div class="db-side me"><b id="db-me">Du</b><span id="db-me-pips" class="pips"></span></div>
+    <div class="db-mid"><span id="db-round">Runde 1</span><b id="db-time">1:30</b><span id="db-info"></span></div>
+    <div class="db-side op"><span id="db-op-pips" class="pips"></span><b id="db-op">Gegner</b></div>
+  </div>
+  <div id="countdown" class="countdown off"><b id="cd-num">3</b></div>
+  <div id="roundbanner" class="round-banner off"><span id="rb-sub"></span><b id="rb-text"></b></div>
+  <div id="duelend" class="duel-end off"><div class="card-end"><span id="de-res" class="res"></span><b id="de-score" class="sc"></b><span id="de-vs" class="vs"></span><span id="de-pot" class="pot"></span></div></div>
+  <div id="invite" class="invite off">
+    <div class="ihead"><i class="ic" data-icon="swords"></i><span>Herausforderung zum 1v1</span></div>
+    <div id="inv-name" class="iname"></div>
+    <div id="inv-line" class="iline"></div>
+    <div id="inv-stake" class="iline istake"></div>
+    <div class="ikeys"><span><kbd id="inv-yes">Y</kbd>Annehmen</span><span><kbd id="inv-no">X</kbd>Ablehnen</span></div>
+    <i id="inv-life" class="ilife"></i>
+  </div>
+
+  <div id="versus" class="versus off">
+    <div class="vs-band left"><b id="vs-left"></b></div>
+    <div class="vs-band right"><b id="vs-right"></b></div>
+    <div class="vs-mark">VS</div>
+    <div id="vs-zone" class="vs-zone"></div>
+  </div>
+  <div id="zonewarn" class="zonewarn off"><i class="ic" data-icon="triangle-alert"></i><span>Zurück in die Zone</span><b id="zone-sec">5</b></div>
+  <div id="protect" class="protect off"><i class="ic" data-icon="shield-check"></i><span>Spawnschutz</span><b id="protect-sec">3</b></div>
+  <div id="prompt" class="prompt off"><kbd id="prompt-key">E</kbd><span id="prompt-text">Garage</span></div>
+  <div id="levelup" class="levelup off"><i></i><i></i><i></i><span>Level up</span><b id="levelup-num">2</b></div>
+
+  <div id="death" class="death off">
+    <div class="death-card">
+      <span id="death-title" class="death-title">Eliminiert</span>
+      <div id="death-profile" class="death-profile off"></div>
+      <div id="death-killer" class="death-killer"></div>
+      <div id="death-sub" class="death-sub"></div>
+      <div id="death-stats" class="death-stats off"></div>
+      <div id="death-vitals" class="death-vitals"></div>
+      <div class="death-respawn">
+        <svg viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="19"/><circle id="death-ring" class="ring" cx="22" cy="22" r="19"/></svg>
+        <b id="death-sec">3</b>
+        <span>Respawn</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Team beigetreten: Wipe in der Teamfarbe -->
+<div id="takeover" class="takeover off">
+  <div class="to-wipe"></div>
+  <div class="to-content">
+    <div id="to-emblem" class="to-emblem"></div>
+    <span class="to-label">Willkommen bei</span>
+    <b id="to-name"></b>
+    <span id="to-hood" class="to-hood"></span>
+  </div>
+</div>
+
+<!-- ================================================================ Bildschirme -->
+<section id="scr-login" class="screen off" data-screen="login"></section>
+<section id="scr-teams" class="screen off" data-screen="teams"></section>
+<section id="scr-menu" class="screen off" data-screen="menu"></section>
+<section id="scr-garage" class="screen off" data-screen="garage"></section>
+<section id="scr-admin" class="screen off" data-screen="admin"></section>
+<section id="scr-wardrobe" class="screen off" data-screen="wardrobe"></section>
+<section id="scr-help" class="screen off" data-screen="help"></section>
+
+<!-- Case öffnen -->
+<div id="opener" class="opener off"></div>
+
+<script src="icons.js"></script>
+<script src="mapdata.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+<script src="features.js"></script>
+</body>
+</html>

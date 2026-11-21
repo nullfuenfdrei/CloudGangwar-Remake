@@ -1,0 +1,113 @@
+@font-face { font-family: 'Rajdhani'; src: url('../fonts/Rajdhani-Medium.ttf'); font-weight: 500; }
+@font-face { font-family: 'Rajdhani'; src: url('../fonts/Rajdhani-SemiBold.ttf'); font-weight: 600; }
+@font-face { font-family: 'Rajdhani'; src: url('../fonts/Rajdhani-Bold.ttf'); font-weight: 700; }
+@font-face { font-family: 'Russo One'; src: url('../fonts/RussoOne-Regular.ttf'); }
+@font-face { font-family: 'Kaushan Script'; src: url('../fonts/KaushanScript-Regular.ttf'); }
+
+:root {
+    --bg: #05090d;
+    --text: #e9f1f8;
+    --muted: #8b9aab;
+    --blue: #19b2ff;
+    --blue-2: #0a8fe0;
+    --blue-glow: rgba(25, 178, 255, 0.5);
+    --line: rgba(190, 222, 255, 0.14);
+    --glass: linear-gradient(162deg, rgba(34, 52, 72, 0.55), rgba(12, 20, 30, 0.62) 50%, rgba(8, 13, 20, 0.72));
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: calc(100vh / 108); }
+body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); color: var(--text); font: 500 1.6rem/1.4 'Rajdhani', sans-serif; -webkit-font-smoothing: antialiased; user-select: none; }
+.off { display: none !important; }
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+.ic { display: inline-flex; width: 2rem; height: 2rem; flex: none; }
+.ic svg { width: 100%; height: 100%; }
+
+/* Hintergrund: Karte von San Andreas, langsam schwenkend */
+.map { position: fixed; inset: 0; width: 100%; height: 100%; opacity: 0; animation: fadeIn 2.4s ease-out 0.2s forwards; }
+.shade { position: fixed; inset: 0; background:
+    linear-gradient(90deg, rgba(5, 9, 13, 0.96) 0%, rgba(5, 9, 13, 0.82) 34%, rgba(5, 9, 13, 0.25) 70%, rgba(5, 9, 13, 0.55) 100%),
+    linear-gradient(0deg, rgba(5, 9, 13, 0.95) 0%, transparent 30%); }
+
+/* Bokeh-Lichter */
+.orbs { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+.orb { position: absolute; border-radius: 50%; background: radial-gradient(circle at 35% 35%, rgba(120, 210, 255, 0.95), rgba(14, 165, 255, 0.55) 45%, rgba(14, 165, 255, 0) 72%); filter: blur(var(--b, 6px)); opacity: 0; animation: drift var(--d, 18s) linear var(--delay, 0s) infinite; mix-blend-mode: screen; }
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(var(--s0, 0.8)); opacity: 0; }
+    12% { opacity: var(--o, 0.6); }
+    50% { transform: translate(var(--mx, 40px), var(--my, -160px)) scale(var(--s1, 1.1)); }
+    88% { opacity: var(--o, 0.6); }
+    100% { transform: translate(calc(var(--mx, 40px) * 2), calc(var(--my, -160px) * 2)) scale(var(--s0, 0.8)); opacity: 0; }
+}
+
+.character { position: fixed; right: 4vw; bottom: 0; height: 88vh; object-fit: contain; filter: drop-shadow(0 0 4rem rgba(14, 165, 255, 0.25)); animation: charIn 1.4s cubic-bezier(0.2, 0.9, 0.25, 1) both; }
+
+/* Inhalt links */
+.content { position: fixed; left: 8rem; top: 50%; transform: translateY(-58%); width: 72rem; }
+.brand { animation: up 1s cubic-bezier(0.2, 0.9, 0.25, 1) 0.2s both; }
+.logo { display: inline-flex; align-items: center; gap: 1.4rem; }
+.logo-img { max-height: 11rem; max-width: 72rem; display: block; filter: drop-shadow(0 1.4rem 3rem rgba(0, 0, 0, 0.6)) drop-shadow(0 0 3rem rgba(25, 178, 255, 0.18)); }
+/* Glas mit Neon-Kante */
+.glass { position: relative; background: var(--glass); border-radius: 1.4rem; box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.4), 0 0 4rem -1.6rem var(--blue-glow), inset 0 1px 0 rgba(255, 255, 255, 0.12); }
+.glass::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+    background: linear-gradient(135deg, rgba(25, 178, 255, 0.85), rgba(25, 178, 255, 0.1) 32%, rgba(255, 255, 255, 0.07) 58%, rgba(25, 178, 255, 0.55));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+/* BS-Abzeichen rechts */
+.badge-wrap { position: fixed; right: 9vw; top: 50%; width: 52rem; height: 52rem; margin-top: -30rem; display: flex; align-items: center; justify-content: center; animation: charIn 1.4s cubic-bezier(0.2, 0.9, 0.25, 1) 0.3s both; }
+.badge-wrap::before { content: ''; position: absolute; inset: 16%; border-radius: 50%; background: radial-gradient(circle, rgba(25, 178, 255, 0.22), transparent 70%); }
+.badge-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.badge-ring .ring { transform-origin: 256px 256px; animation: spin 60s linear infinite; }
+.badge-ring .comet { transform-origin: 256px 256px; animation: spin 3.4s linear infinite; }
+.badge-img { position: relative; width: 64%; filter: drop-shadow(0 2rem 4rem rgba(0, 0, 0, 0.6)) drop-shadow(0 0 4rem rgba(25, 178, 255, 0.25)); animation: badgeFloat 6s ease-in-out infinite; }
+@keyframes badgeFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.2rem); } }
+.logo-name { position: relative; font: 400 9.6rem/1 'Russo One'; letter-spacing: 0.01em; color: #fff; text-shadow: 0 0 5rem rgba(14, 165, 255, 0.35);
+    background: linear-gradient(100deg, #ffffff 0%, #ffffff 40%, #9fdcff 50%, #ffffff 60%, #ffffff 100%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 5s ease-in-out 1.2s infinite; }
+.logo-tag { display: inline-flex; align-items: center; height: 5.2rem; padding: 0 1.6rem; border-radius: 0.8rem; background: linear-gradient(180deg, #22b2ff, var(--blue-2)); font: 400 2.8rem 'Russo One'; letter-spacing: 0.06em; color: #fff; box-shadow: 0 1rem 3rem -0.8rem var(--blue-glow); }
+.subtitle { margin-top: 0.4rem; font: 400 4.6rem/1.2 'Kaushan Script'; color: var(--blue); text-shadow: 0 0 2.4rem rgba(14, 165, 255, 0.55); transform: rotate(-3deg); transform-origin: left; animation: up 1s cubic-bezier(0.2, 0.9, 0.25, 1) 0.45s both; }
+.subtitle:empty { display: none; }
+.welcome { margin-top: 2.6rem; max-width: 64rem; padding: 2rem 2.4rem; color: #d2deea; font-size: 1.95rem; font-weight: 500; line-height: 1.45; animation: up 1s cubic-bezier(0.2, 0.9, 0.25, 1) 0.65s both; }
+.welcome:empty { display: none; }
+.links { display: flex; gap: 1.2rem; margin-top: 3rem; animation: up 1s cubic-bezier(0.2, 0.9, 0.25, 1) 0.85s both; }
+.btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 1rem; height: 5rem; padding: 0 2.4rem; border-radius: 0.6rem; font-weight: 700; font-size: 1.8rem; transition: transform 0.15s, filter 0.2s; }
+.btn:hover { filter: brightness(1.1); transform: translateY(-0.2rem); }
+.btn .ic { width: 2.2rem; height: 2.2rem; }
+.btn.discord { background: #5865f2; color: #fff; box-shadow: 0 1rem 2.6rem -1rem rgba(88, 101, 242, 0.8); }
+.btn.store { background: rgba(255, 255, 255, 0.07); box-shadow: inset 0 0 0 1px var(--line); }
+.btn::after { content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.3), transparent); transform: skewX(-20deg); animation: btnShine 4s ease-in-out 2s infinite; }
+.tip { display: inline-flex; align-items: center; gap: 1rem; margin-top: 3.4rem; padding: 1.2rem 1.6rem; border-radius: 1rem; background: var(--glass); box-shadow: inset 0 0 0 1px var(--line), inset 0 1px 0 rgba(255, 255, 255, 0.1); color: #d2deea; font-weight: 600; max-width: 66rem; animation: up 1s cubic-bezier(0.2, 0.9, 0.25, 1) 1.05s both; }
+.tip .ic { color: var(--blue); }
+.tip span { transition: opacity 0.4s; }
+.tip span.swap { opacity: 0; }
+
+/* Musik */
+.player { position: fixed; left: 8rem; bottom: 13rem; display: grid; grid-template-columns: auto 24rem auto auto; gap: 1.6rem; align-items: center; padding: 1.2rem 1.6rem; border-radius: 1.2rem; background: var(--glass); box-shadow: inset 0 0 0 1px var(--line), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 3rem -1.4rem var(--blue-glow); animation: up 1s cubic-bezier(0.2, 0.9, 0.25, 1) 1.2s both; }
+.disc { width: 4.6rem; height: 4.6rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #13202c, #070c11); color: var(--blue); }
+.disc .ic { width: 3.4rem; height: 3.4rem; }
+.player.playing .disc .ic { animation: spin 3.2s linear infinite; }
+.track { min-width: 0; }
+.track b { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.8rem; }
+.track span { display: block; color: var(--muted); font-size: 1.4rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.controls { display: flex; align-items: center; gap: 0.6rem; }
+.controls button, .volume button { width: 3.8rem; height: 3.8rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--muted); transition: color 0.2s, background 0.2s; }
+.controls button:hover, .volume button:hover { color: #fff; background: rgba(150, 182, 214, 0.1); }
+.controls button.main { width: 4.6rem; height: 4.6rem; background: var(--blue); color: #fff; box-shadow: 0 0.6rem 1.8rem -0.6rem var(--blue-glow); }
+.volume { display: flex; align-items: center; gap: 0.6rem; }
+input[type=range] { -webkit-appearance: none; width: 11rem; height: 0.5rem; border-radius: 0.3rem; background: linear-gradient(90deg, var(--blue) var(--p, 25%), rgba(150, 182, 214, 0.2) var(--p, 25%)); outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: #fff; cursor: pointer; }
+
+/* Ladebalken */
+.loading { position: fixed; left: 8rem; right: 8rem; bottom: 5.6rem; animation: up 1s cubic-bezier(0.2, 0.9, 0.25, 1) 0.3s both; }
+.loading-head { display: flex; align-items: baseline; gap: 1.6rem; margin-bottom: 1.2rem; }
+.loading-label { font: 400 2rem 'Russo One'; letter-spacing: 0.3em; text-transform: uppercase; }
+.status { flex: 1; color: var(--muted); font-weight: 600; font-size: 1.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.percent { font: 400 2.4rem 'Russo One'; color: var(--blue); }
+.track-bar { position: relative; height: 0.6rem; border-radius: 0.3rem; background: rgba(150, 182, 214, 0.14); overflow: visible; }
+.track-bar i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 0.3rem; background: linear-gradient(90deg, var(--blue-2), var(--blue), #8fd8ff); box-shadow: 0 0 1.6rem var(--blue-glow); }
+.track-bar i::after { content: ''; position: absolute; right: -0.6rem; top: 50%; width: 1.4rem; height: 1.4rem; margin-top: -0.7rem; border-radius: 50%; background: #fff; box-shadow: 0 0 1.6rem 0.4rem var(--blue), 0 0 4rem 1rem rgba(14, 165, 255, 0.5); }
+
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes up { from { opacity: 0; transform: translateY(2.4rem); } to { opacity: 1; transform: none; } }
+@keyframes charIn { from { opacity: 0; transform: translateX(6rem); } to { opacity: 1; transform: none; } }
+@keyframes shimmer { 0%, 100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
+@keyframes btnShine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }

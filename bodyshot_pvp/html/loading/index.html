@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Lädt …</title>
+<link rel="stylesheet" href="loading.css">
+</head>
+<body>
+  <canvas id="map" class="map"></canvas>
+  <div class="shade"></div>
+  <div id="orbs" class="orbs"></div>
+  <img id="character" class="character off" alt="">
+  <div id="badge" class="badge-wrap">
+    <svg class="badge-ring" viewBox="0 0 512 512" aria-hidden="true">
+      <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#19b2ff" stop-opacity="0"/><stop offset="1" stop-color="#c9ecff" stop-opacity="1"/></linearGradient></defs>
+      <g class="ring">
+        <circle cx="256" cy="256" r="226" fill="none" stroke="#19b2ff" stroke-opacity="0.42" stroke-width="3"/>
+        <circle cx="256" cy="256" r="210" fill="none" stroke="#19b2ff" stroke-opacity="0.18" stroke-width="1.6" stroke-dasharray="2 9.1"/>
+        <g stroke="#4cc3ff" stroke-width="5" stroke-linecap="round">
+          <line x1="256" y1="16" x2="256" y2="46"/><line x1="256" y1="466" x2="256" y2="496"/>
+          <line x1="16" y1="256" x2="46" y2="256"/><line x1="466" y1="256" x2="496" y2="256"/>
+        </g>
+      </g>
+      <g class="comet"><path d="M 256 30 A 226 226 0 0 1 415.8 96.2" fill="none" stroke="url(#cg)" stroke-width="5" stroke-linecap="round"/><circle cx="415.8" cy="96.2" r="6" fill="#e6f6ff"/></g>
+    </svg>
+    <img id="badge-img" class="badge-img" src="../img/brand/logo-anim.webp" alt="">
+  </div>
+
+  <main class="content">
+    <div class="brand">
+      <img id="logo-img" class="logo-img off" alt="BODYSHOT GANGWAR">
+      <div id="logo-text" class="logo">
+        <span id="logo-name" class="logo-name">BODYSHOT</span>
+        <span id="logo-tag" class="logo-tag">GANGWAR</span>
+      </div>
+      <div id="subtitle" class="subtitle"></div>
+    </div>
+    <p id="welcome" class="welcome glass"></p>
+    <div class="links">
+      <button id="btn-discord" class="btn discord off" type="button"><i class="ic" data-icon="discord"></i>Discord beitreten</button>
+      <button id="btn-store" class="btn store off" type="button"><i class="ic" data-icon="shopping-cart"></i>Shop</button>
+    </div>
+    <div id="tip" class="tip"><i class="ic" data-icon="info"></i><span id="tip-text"></span></div>
+  </main>
+
+  <div id="player" class="player off">
+    <div class="disc"><i class="ic" data-icon="disc-3"></i></div>
+    <div class="track">
+      <b id="track-title">–</b>
+      <span id="track-artist"></span>
+    </div>
+    <div class="controls">
+      <button id="prev" type="button" aria-label="Zurück"><i class="ic" data-icon="skip-back"></i></button>
+      <button id="play" type="button" class="main" aria-label="Pause"><i class="ic" data-icon="pause"></i></button>
+      <button id="next" type="button" aria-label="Weiter"><i class="ic" data-icon="skip-forward"></i></button>
+    </div>
+    <div class="volume">
+      <button id="mute" type="button" aria-label="Ton aus"><i class="ic" data-icon="volume-2"></i></button>
+      <input id="vol" type="range" min="0" max="1" step="0.01" value="0.25">
+    </div>
+  </div>
+
+  <footer class="loading">
+    <div class="loading-head">
+      <span class="loading-label">Loading</span>
+      <span id="status" class="status">Verbinde mit dem Server …</span>
+      <b id="percent" class="percent">0%</b>
+    </div>
+    <div class="track-bar"><i id="bar"></i></div>
+  </footer>
+
+  <audio id="audio" preload="auto"></audio>
+  <script src="../icons.js"></script>
+  <script src="../mapdata.js"></script>
+  <script src="loading.js"></script>
+</body>
+</html>

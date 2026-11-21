@@ -1,0 +1,15 @@
+Musik für den Ladebildschirm
+
+1. MP3-Dateien in diesen Ordner kopieren, z. B. meinsong.mp3
+2. In der config.lua bei Config.Music eintragen:
+
+   Config.Music = {
+       volume = 0.25,
+       tracks = {
+           { title = 'Mein Song', artist = 'Ich', file = 'meinsong.mp3' },
+       },
+   }
+
+3. Server neu starten. Ohne eingetragene Songs wird der Player ausgeblendet.
+
+Achtung: Nur Musik verwenden, die du benutzen darfst (z. B. deine eigene).

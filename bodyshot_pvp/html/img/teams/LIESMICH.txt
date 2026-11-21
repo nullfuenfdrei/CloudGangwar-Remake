@@ -1,0 +1,14 @@
+Eigene Bilder (alles optional – fehlt ein Bild, zeigt der Server automatisch etwas Passendes an)
+
+  img/logo.png            Dein Server-Logo. Ersetzt den Schriftzug oben links in allen Menüs
+                          und auf dem Ladebildschirm. Am besten transparent, ca. 600 x 160 px.
+
+  img/teams/<id>.png      Logo für ein Team im Teams-Fenster (F1), quadratisch, transparent, ca. 256 x 256 px.
+                          <id> ist die Gang-ID aus der config.lua, z. B. ballas.png, families.png, vagos.png
+                          Private Teams: p<Nummer>.png, z. B. p1.png für das private Team Nr. 1
+
+  img/ffa/<key>.jpg       Vorschaubild für eine FFA-Arena (F2 -> Free for all), 16:9, ca. 640 x 360 px.
+                          <key> ist der key der Arena aus der config.lua, z. B. hafen.jpg, legion.jpg
+                          Ohne Bild wird die Straßenkarte rund um die Arena gezeichnet.
+
+Nach dem Reinkopieren: in der txAdmin-Konsole "ensure bodyshot_pvp" eingeben.

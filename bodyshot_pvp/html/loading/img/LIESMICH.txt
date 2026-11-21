@@ -1,0 +1,6 @@
+Eigenes Bild für den Ladebildschirm (optional)
+
+  character.png   Wird rechts groß angezeigt, z. B. eine Figur oder ein Artwork.
+                  Am besten transparenter Hintergrund, ca. 1000 x 1400 px.
+
+Ohne Bild läuft im Hintergrund die animierte Karte von Los Santos mit den Gebieten.
